@@ -17,7 +17,7 @@ jobs:
     
     runs-on: ubuntu-latest
     steps:
-    - name: Docker image 
+    - name: Docker images
       run : echo "hello:${{ github.event.inputs.name }}"
 
   
