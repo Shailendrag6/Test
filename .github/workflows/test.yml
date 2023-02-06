@@ -7,29 +7,25 @@ on:
     branches:
       - main
 
-env:
-  IMAGE_VERSION: ${{ env.IMAGE_TAG }}
-
+  workflow_dispatch:
+    inputs:
+      flutter_version:
+        description: 'Image version'
+        required: true
+        default: '2.5.3'
 jobs:
-  build:
+
+  add-ip-whitelist:
+    
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Ask for image tag
-      id: input
-      uses: actions/bin/filter@v1
-      with:
-        args: tag
-        by: user
+    - name: Build Docker Image
       env:
-        IMAGE_TAG: ${{ steps.input.outputs.user_input }}
+       FLUTTER_VERSION: ${{ inputs.flutter_version }}
+      run: |
+       docker build \
+       --build-arg FLUTTER_VERSION=${FLUTTER_VERSION} \
+        -t myimage:$FLUTTER_VERSION .
 
-    - name: Build Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: my-image:${{ env.IMAGE_VERSION }}
+  
+
