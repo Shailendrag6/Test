@@ -1,14 +1,35 @@
-name: Input Example
+# Example Github Actions workflow
+
+name: Build and push Docker image
 
 on:
   push:
-    branches: [main]
-    
-  workflow_dispatch:
-    inputs:
-      username:
-        description: "give me your username"
-        default: "geralexgr"
-        type: "string"
+    branches:
+      - main
 
+env:
+  IMAGE_VERSION: ${{ env.IMAGE_TAG }}
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Ask for image tag
+      id: input
+      uses: actions/bin/filter@v1
+      with:
+        args: tag
+        by: user
+      env:
+        IMAGE_TAG: ${{ steps.input.outputs.user_input }}
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: my-image:${{ env.IMAGE_VERSION }}
