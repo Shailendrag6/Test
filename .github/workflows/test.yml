@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Image version'
+        description: 'Image version [ default: latest]'
         required: true
 
  
