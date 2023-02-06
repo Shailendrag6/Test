@@ -6,7 +6,7 @@ on:
   
   workflow_dispatch:
     inputs:
-      flutter_version:
+      name:
         description: 'Image version'
         required: true
   push:
@@ -16,15 +16,12 @@ on:
  
 jobs:
 
-  add-ip-whitelist:
+  build:
     
     runs-on: ubuntu-latest
     steps:
-    - name: Build Docker Image
-      env:
-       FLUTTER_VERSION: ${{ inputs.flutter_version }}
-      run: |
-        echo " myimage:$FLUTTER_VERSION"
+    - name: Docker image 
+      run : echo hello:"{{github.event.input.name}}"
 
   
 
