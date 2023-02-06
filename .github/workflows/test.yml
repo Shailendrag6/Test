@@ -3,19 +3,12 @@ name: Input Example
 on:
   push:
     branches: [main]
+    
+  workflow_dispatch:
+    inputs:
+      username:
+        description: "give me your username"
+        default: "geralexgr"
+        type: "string"
 
-jobs:
-  run:
-    runs-on: ubuntu-latest
 
-    steps:
-    - name: Ask for input
-      id: input_step
-      uses: actions/input@v2
-      with:
-        name: input_example
-        message: Please enter a string
-        actions: manual-intervention
-
-    - name: Echo input
-      run: echo "The input is:${{ steps.input_step.outputs.input_example }}"
