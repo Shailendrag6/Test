@@ -3,15 +3,16 @@
 name: Build and push Docker image
 
 on:
-  push:
-    branches:
-      - main
-
+  
   workflow_dispatch:
     inputs:
       flutter_version:
         description: 'Image version'
         required: true
+  push:
+    branches:
+      - main
+
  
 jobs:
 
