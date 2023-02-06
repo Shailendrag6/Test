@@ -12,7 +12,7 @@ on:
       flutter_version:
         description: 'Image version'
         required: true
-        default: '2.5.3'
+ 
 jobs:
 
   add-ip-whitelist:
@@ -23,9 +23,7 @@ jobs:
       env:
        FLUTTER_VERSION: ${{ inputs.flutter_version }}
       run: |
-       docker build \
-       --build-arg FLUTTER_VERSION=${FLUTTER_VERSION} \
-        -t myimage:$FLUTTER_VERSION .
+        echo " myimage:$FLUTTER_VERSION"
 
   
 
